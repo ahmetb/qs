@@ -1,7 +1,8 @@
-package qs
+package qs_test
 
 import (
 	"fmt"
+	"qs"
 )
 
 func ExampleEncode() {
@@ -17,7 +18,7 @@ func ExampleEncode() {
 		Opt:   []string{"safe", "localized"},
 	}
 
-	fmt.Println(Encode(p).Encode())
+	fmt.Println(qs.Encode(p).Encode())
 	// Output:
 	// num=10&opt=safe&opt=localized&q=apple+pie
 }

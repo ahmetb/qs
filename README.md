@@ -15,19 +15,27 @@ Browse documentation on [GoDoc](https://godoc.org/github.com/ahmetalpbalkan/qs):
 ```go
 
 import "github.com/ahmetalpbalkan/qs"
+...
 
 type SearchParams struct {
 	Query string `qs:"q"` 
-	Count int `qs:"num,omitempty"` 
-	Next  int `qs:"n,omitempty"` 
+	Count int    `qs:"num,omitempty"`
+	Start int    `qs:"start,omitempty"`
 }
 
 params := SearchParams{
 	Query: "apple pie",
-	Count: 10}
+	Count: 30}
 
-query := qs.Encode(params).Encode()
-// Output: q=apple+pie&num=10
+addr := &url.URL{
+	Schema:   "https",
+	Host:     "google.com",
+	Path:     "search",
+	RawQuery: qs.Encode(params).Encode(), // Magic!
+}.String()
+
+fmt.Println(addr)
+// Output: https://google.com/search?q=apple+pie&num=30
 ```
 
 # License
