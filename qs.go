@@ -8,25 +8,25 @@ import (
 	"strings"
 )
 
-// Encode returns the HTTP URL Query Values from the given structure v.
+// Encode returns the URL query parameters from the given structure v.
 //
-// It panics if v is not a struct or a struct that contains values other
-// than bool, int, float, string, slice/array of those or another slice
+// It panics if v is not a struct or a struct that contains fields of types
+// other than bool, int, float, string, slice/array of those or another slice
 // with String(). If v is nil, zero value for url.Values is returned.
 //
 // Literal values are encoded with their Go string representations.
 //
-// Pointer fields in v are derefenced until they are no longer pointer.
+// Pointer fields in v are derefenced until they are no longer pointers.
 //
-// Each field in v struct gets encoded as an URL Value unless:
+// Each field in v struct gets encoded as an URL value, unless:
 //   - the field's tag is "-", or
 //   - the field is empty and its tag specifies the "omitempty" option.
 //
-// Similar to encoding/json package, the default key is the field name
-// but can be specified in the struct field's tag value. The "qs" key in
-// the struct field's tag value is the key name, followed by an optional comma
-// and an optional "omitempty" to discard the key when the value of the
-// field is its zero value.
+// Similar to encoding/json package, the default key is the field name but can
+// be specified in the struct field's tag value. The "qs" key in the struct
+// field's tag value is the key name, followed by an optional comma and an
+// optional "omitempty" to discard the key when the value of the field is its
+// zero value.
 func Encode(v interface{}) url.Values {
 	qs := url.Values{}
 	t := reflect.TypeOf(v)
