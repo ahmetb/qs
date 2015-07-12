@@ -81,6 +81,14 @@ func TestStructStringer(t *testing.T) {
 		"age=5&name=child&parent=dad")
 }
 
+func TestEmptyStructTag(t *testing.T) {
+	testOut(t, struct {
+		Int    int    `qs:""`
+		String string `qs:""`
+	}{10, "foo"},
+		"Int=10&String=foo")
+}
+
 func TestDefaultNames(t *testing.T) {
 	testOut(t, struct {
 		Int    int `qs:",omitempty"`
